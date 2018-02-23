@@ -48,7 +48,7 @@ std::string iToP( std::string input ){
 				operators.pop();	
 			}
 
-			if(operators.size() == 0 || *it != ')'){
+			if( operators.size() == 0 || *it != ')' ){
 				operators.push( *it );
 			}else{
 				operators.pop();	
@@ -77,6 +77,10 @@ bool prec( char ch, char ch2 ){
 		return false;
 	else if( ch2 == ')' )
 		return true;
+	else if( ch == '^' )
+		return true;
+	else if ( ch == '^' )
+		return false;
 	else if( ch == '*' || ch == '/' )
 		return true;
 	else if ( ch2 == '+' || ch2 == '-' )
@@ -100,7 +104,9 @@ int main( int argc, char** argv ){
 	std::cout << iToP("A + B * C - D / E * F") << std::endl;
 	std::cout << iToP("(A + B * C - D) / (E * F)") << std::endl;
 	std::cout << iToP("((A + B) * (C - D ) + E) / (F + G)") << std::endl;
-	std::cout << iToP(" ((((a + b) + c) - d) + { g }") << std::endl; 
-	
+	std::cout << iToP("A ^ B * C - D + E") << std::endl;
+	std::cout << iToP("(A + B) ^ G * B") << std::endl;
+	std::cout << iToP(" ((((a + b) + c) - d) + { g }") << std::endl;
+
 	return EXIT_SUCCESS;
 }
