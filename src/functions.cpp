@@ -1,9 +1,13 @@
 //Author Nathan Vanden Hoek
 
+//File I/O info from already some knowlege of C, and
+//https://www.uow.edu.au/~lukes/TEXTBOOK/notes-cpp/io/readtextfile.html
+
 #include <iostream>
 #include <string>
 #include <stack>
 #include <vector>
+#include <fstream>
 #include "functions.h"
 
 /*******************************************************************************************
@@ -94,6 +98,30 @@ bool prec( char ch, char ch2 ){
  *******************************************************************************************/
 int main( int argc, char** argv ){
 	
+	if(argc != 2){
+		std::cout << "ERROR, please enter a file to test!!" << std::endl;
+		exit(1);
+	}
+
+	std::ifstream myFile;
+	std::string input;
+
+	myFile.open( argv[1] );
+	
+	if( !myFile ){
+		std::cout << "Unable to open file" << std::endl;
+		exit(1);
+	}
+
+	while( myFile.eof()  ){
+		myFile >> input;
+	}
+
+	myFile.close();
+	
+	if( !balancedSymbols(input) )
+		std::cout << "WORKED!" << std::endl;
+
 	std::cout << iToP("A + B * C + D") << std::endl;
 	std::cout << iToP("(A + B) * (C + D)") << std::endl;
 	std::cout << iToP("A * B + C * D") << std::endl;
@@ -108,5 +136,5 @@ int main( int argc, char** argv ){
 	std::cout << iToP("(A + B) ^ G * B") << std::endl;
 	std::cout << iToP(" ((((a + b) + c) - d) + { g }") << std::endl;
 
-	return EXIT_SUCCESS;
+        return EXIT_SUCCESS;
 }
